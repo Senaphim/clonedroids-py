@@ -29,7 +29,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
 
     player = Player(x, y)
     asteroid_field = AsteroidField()
@@ -52,6 +52,11 @@ def main():
                 print("GAME OVER!")
                 sys.exit()
 
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collision(shot):
+                    asteroid.split()
+                    shot.kill()
         
         pygame.display.flip()
 
